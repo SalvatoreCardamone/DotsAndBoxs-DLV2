@@ -1,5 +1,6 @@
 package ModelViewControll;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import GameData.*;
@@ -17,22 +18,74 @@ public class Model {
 	private ArrayList<Dot> listDots;
 
 	
-	public Model() {
+	public Model(int x, int y) throws IOException {
 		this.humanPlayer=new Player();
 		this.aiPlayer= new Player();
 		listSquares=new ArrayList<Square>();
 		listLines= new ArrayList<Line>();
 		listDots=new ArrayList<Dot>();
+		loadDots(x,y);
+		
 	}
 	
 	
 	//ListDots Loading scheme
-	public void loadDots(int x, int y) {
+	public void loadDots(int x, int y) throws IOException {
 		for(int i=0; i<x; i++) {
 			for(int j=0; j<y; j++) {
 				listDots.add(new Dot(i,j));
 			}
 		}
+	}
+
+
+	public Player getHumanPlayer() {
+		return humanPlayer;
+	}
+
+
+	public void setHumanPlayer(Player humanPlayer) {
+		this.humanPlayer = humanPlayer;
+	}
+
+
+	public Player getAiPlayer() {
+		return aiPlayer;
+	}
+
+
+	public void setAiPlayer(Player aiPlayer) {
+		this.aiPlayer = aiPlayer;
+	}
+
+
+	public ArrayList<Square> getListSquares() {
+		return listSquares;
+	}
+
+
+	public void setListSquares(ArrayList<Square> listSquares) {
+		this.listSquares = listSquares;
+	}
+
+
+	public ArrayList<Line> getListLines() {
+		return listLines;
+	}
+
+
+	public void setListLines(ArrayList<Line> listLines) {
+		this.listLines = listLines;
+	}
+
+
+	public ArrayList<Dot> getListDots() {
+		return listDots;
+	}
+
+
+	public void setListDots(ArrayList<Dot> listDots) {
+		this.listDots = listDots;
 	}
 	
 	

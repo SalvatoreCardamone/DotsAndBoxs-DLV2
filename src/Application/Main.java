@@ -1,14 +1,19 @@
 package Application;
 
 
+import java.io.IOException;
+
 import javax.swing.SwingUtilities;
 
+import ModelViewControll.Controller;
+import ModelViewControll.Model;
 import ModelViewControll.View;
 
 public class Main {
 
-	 public static void main(String[] args) {       
+	 public static void main(String[] args) throws IOException {       
 		 System.out.println("PROVA");
-	     View a=new View();
+		 int nQuadranti=10;
+		 Controller A=new Controller(new Model(nQuadranti, nQuadranti), new View(nQuadranti, nQuadranti));
 	    }
 }
