@@ -32,8 +32,7 @@ public class View {
 	public View(int x, int y) throws IOException{
 		
 		//Screen Creation0
-		screen= new JFrame();		
-	
+		screen= new JFrame();
 		
 		//Bar Component
 		playerBar= new JPanel(new GridLayout());
@@ -44,8 +43,12 @@ public class View {
 			scorePlayer.setFont(new Font("myFont", Font.BOLD, 30));
 			scoreAi.setFont(new Font("myFont", Font.BOLD, 30));
 			/*Picture JLabel Settings*/
-			BufferedImage tempPlayerIcon= ImageIO.read(new File("C:\\Users\\salva\\git\\DotsAndBoxs-DLV2\\Image\\parte1.PNG"));
-			BufferedImage tempAiIcon= ImageIO.read(new File("C:\\Users\\salva\\git\\DotsAndBoxs-DLV2\\Image\\parte1.PNG"));
+			Image tempPlayerIcon= ImageIO.read(new File("Image"+File.separator+"ai.png"));
+			Image tempAiIcon= ImageIO.read(new File("Image"+File.separator+"human.png"));
+			
+			tempPlayerIcon = tempPlayerIcon.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+			tempAiIcon = tempAiIcon.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+
 			picturePlayer=new JLabel(new ImageIcon(tempPlayerIcon));
 			pictureAi= new JLabel(new ImageIcon(tempAiIcon));
 		playerBar.add(scorePlayer);
@@ -67,15 +70,16 @@ public class View {
 		
 		//gameInterface Settings
 		gameInterface=new JPanel(null);
-		gameInterface.setBackground(Color.YELLOW);
+		gameInterface.setBackground(Color.GRAY);
 		
 		//Screen Settings
 		screen.getContentPane().setLayout(new BorderLayout());
-		screen.setUndecorated(true);
+		screen.setSize(new Dimension(800,800));
+		//screen.setUndecorated(true);
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setAlwaysOnTop(true);
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		device.setFullScreenWindow(screen);
+		//device.setFullScreenWindow(screen);
 		
 		//Component add
 		screen.getContentPane().add(bar,BorderLayout.NORTH);
@@ -100,7 +104,7 @@ public class View {
 	}
 	
 	//Dots Add Method
-	public void addDot(BufferedImage image, int x, int y) {
+	public void addDot(Image image, int x, int y) {
 		this.dots.add(new JLabel(new ImageIcon(image)));
 		this.dots.get(this.dots.size()-1).setBounds(x*this.screenScaleX, 
 													y*this.screenScaleY, 

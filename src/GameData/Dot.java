@@ -1,5 +1,6 @@
 package GameData;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,15 +10,17 @@ import javax.imageio.ImageIO;
 public class Dot {
 	private int x;
 	private int y;
-	private BufferedImage image;
+	private Image image;
 	
 	public Dot(int x, int y) throws IOException{
 		this.x=x; this.y=y;
-		File input=new File("C:\\Users\\salva\\git\\DotsAndBoxs-DLV2\\Image\\parte1.PNG");
+		
+		File input=new File("Image"+File.separator+"dot.png");
 		this.image= ImageIO.read(input);
+		this.image = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 	}
 
-	public BufferedImage getImage() {
+	public Image getImage() {
 		return image;
 	}
 

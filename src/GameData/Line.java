@@ -15,7 +15,7 @@ public class Line {
 	public Line(Dot start, Dot end) throws IOException{
 		this.start=start;
 		this.end=end;
-		File input=new File("C:\\\\Users\\\\salva\\\\git\\\\DotsAndBoxs-DLV2\\\\Image\\\\parte1.PNG");
+		File input=new File("Image"+File.separator+"line.png");
 		this.image= ImageIO.read(input);
 	}
 	
