@@ -29,11 +29,11 @@ public class View {
 	private ArrayList<JLabel> lines;
 	private ArrayList<JLabel> square;
 	
+	
 	public View(int x, int y) throws IOException{
 		
 		//Screen Creation0
 		screen= new JFrame();
-		
 		//Bar Component
 		playerBar= new JPanel(new GridLayout());
 		aiBar=new JPanel(new GridLayout());
@@ -51,7 +51,7 @@ public class View {
 
 			picturePlayer=new JLabel(new ImageIcon(tempPlayerIcon));
 			pictureAi= new JLabel(new ImageIcon(tempAiIcon));
-		playerBar.add(scorePlayer);
+		playerBar.add(scorePlayer); 
 		playerBar.add(picturePlayer);
 		aiBar.add(pictureAi);
 		aiBar.add(scoreAi);
@@ -68,17 +68,18 @@ public class View {
 		this.lines= new ArrayList<JLabel>();
 		this.square= new ArrayList<JLabel>();
 		
+		
 		//gameInterface Settings
 		gameInterface=new JPanel(null);
 		gameInterface.setBackground(Color.GRAY);
 		
 		//Screen Settings
 		screen.getContentPane().setLayout(new BorderLayout());
-		screen.setSize(new Dimension(800,800));
+		screen.setSize(new Dimension(600,600));
 		//screen.setUndecorated(true);
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setAlwaysOnTop(true);
-		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		//GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		//device.setFullScreenWindow(screen);
 		
 		//Component add
@@ -89,10 +90,19 @@ public class View {
 		screen.setVisible(true);
 	
 		//Scale Settings
-				this.screenScaleX=(int) (gameInterface.getSize().getWidth()/x);
-				this.screenScaleY=(int) (gameInterface.getSize().getHeight()/y);
-				
+		this.screenScaleX=(int) (screen.getSize().getWidth()/x);
+		this.screenScaleY=(int) (screen.getSize().getHeight()/y);	
 		
+	}
+	
+	public JPanel getGameInterface()
+	{
+		return gameInterface;
+	}
+	
+	public ArrayList<JLabel> getDots()
+	{
+		return dots;
 	}
 	
 	
@@ -114,6 +124,7 @@ public class View {
 		this.refreshScreen();
 	}
 	
+	
 	//Lines Add Method 
 	public void addLine(BufferedImage image, int startX, int startY, int endX, int endY) {
 		this.lines.add(new JLabel(new ImageIcon(image)));
@@ -133,7 +144,7 @@ public class View {
 		this.refreshScreen();
 		System.out.println("aggiunto");
 		}
-	
+		
 	//Square add Method
 
 

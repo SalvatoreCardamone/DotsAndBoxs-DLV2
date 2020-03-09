@@ -25,7 +25,6 @@ public class Model {
 		listLines= new ArrayList<Line>();
 		listDots=new ArrayList<Dot>();
 		loadDots(x,y);
-		
 	}
 	
 	
@@ -36,7 +35,7 @@ public class Model {
 				listDots.add(new Dot(i,j));
 			}
 		}
-	}
+	} 
 
 
 	public Player getHumanPlayer() {

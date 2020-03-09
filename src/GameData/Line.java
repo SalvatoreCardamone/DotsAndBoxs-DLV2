@@ -3,8 +3,8 @@ package GameData;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
+
 
 public class Line {
 
@@ -36,4 +36,14 @@ public class Line {
 		this.end = end;
 	}
 	
+	public boolean isValid()
+	{
+		int difference = 0;
+		difference += Math.abs(start.getX()-end.getX());
+		difference += Math.abs(start.getY()-end.getY());
+		if ( difference <= 1)
+			return true;
+		
+		return false;
+	}
 }
