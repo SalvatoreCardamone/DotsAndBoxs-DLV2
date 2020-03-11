@@ -105,6 +105,12 @@ public class View {
 		return dots;
 	}
 	
+	public int getScreenScaleX() {
+		return this.screenScaleX;
+	}
+	public int getScreenScaleY() {
+		return this.screenScaleY;
+	}
 	
 	//Screen repaint
 	public void refreshScreen() {
@@ -131,14 +137,14 @@ public class View {
 		if(startX==endX) {
 		this.lines.get(this.lines.size()-1).setBounds((screenScaleX/2)+startX*this.screenScaleX, 
 													  (screenScaleY/2)+startY*this.screenScaleY, 
-													  this.screenScaleX,
-													  10);
+													  10,
+													  this.screenScaleY);
 		}
 		else if (startY==endY) {
 			this.lines.get(this.lines.size()-1).setBounds((screenScaleX/2)+startX*this.screenScaleX, 
 														  (screenScaleY/2)+startY*this.screenScaleY, 
-					  									  10,
-					  									  this.screenScaleY);
+					  									  this.screenScaleX,
+					  									  10);
 		}
 		this.gameInterface.add(this.lines.get(this.lines.size()-1));
 		this.refreshScreen();

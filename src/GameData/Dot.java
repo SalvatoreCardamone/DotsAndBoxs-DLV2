@@ -5,21 +5,25 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import javafx.scene.shape.Circle;
-
 public class Dot extends Circle{
 	private int x;
 	private int y;
 	private Image image;
+	private Image notImage;
 	private boolean selected;
 	
 	public Dot(int x, int y) throws IOException{
 		this.x=x; this.y=y;
 		selected = false;
-		File input=new File("Image"+File.separator+"dot.png");
-		this.image= ImageIO.read(input);
+		File inputImage=new File("Image"+File.separator+"dot.png");
+		this.image= ImageIO.read(inputImage);
 		this.image = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+		File inputNotImage= new File("Image"+File.separator+"selectDot.png");
+		this.notImage=ImageIO.read(inputNotImage);
+		this.notImage=notImage.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 		this.setRadius(12.5);
 		this.setCenterX((double) x);
 		this.setCenterX((double) y);
@@ -53,5 +57,13 @@ public class Dot extends Circle{
 	public boolean isSelected()
 	{
 		return selected;
+	}
+	
+	
+	public void switchImage() {
+		this.selected=!this.selected;
+		Image temp= this.image;
+		this.image=this.notImage;
+		this.notImage=temp;
 	}
 }

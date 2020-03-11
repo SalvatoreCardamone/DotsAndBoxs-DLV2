@@ -26,29 +26,18 @@ public class Controller{
 		this.model = model;
 		this.view = view;
 		
+		//Settings of Dots and their Circle
 		for(int i=0; i<this.model.getListDots().size(); i++) 
 			this.view.addDot(this.model.getListDots().get(i).getImage(), this.model.getListDots().get(i).getX(), this.model.getListDots().get(i).getY());
-		
-		Line a = new Line(new Dot(0,2), new Dot(0,3));
-		view.addLine(a.getImage(),a.getStart().getX(),a.getStart().getY(), a.getEnd().getX(), a.getEnd().getY());
-		
-		Vector<Integer> V1 = new Vector<Integer>();
-		Vector<Integer> V2 = new Vector<Integer>();
-		
-		//Prendo le coordinate dei jlabel
-		for (JLabel l : view.getDots())
-		{
-			V1.add(l.getX()+25); //valore provvisorio, da modificare in base alle dim schermo
-			V2.add(l.getY()+25); //valore provvisorio, da modificare in base alle dim schermo
-		}
-		
-		//Le assegno ai dot
+		/*Circle center calculator */
 		for (int i=0; i<model.getListDots().size(); i++)
 		{
-			model.getListDots().get(i).setCenterX((double) V1.get(i));
-			model.getListDots().get(i).setCenterY((double) V2.get(i));
+			model.getListDots().get(i).setCenterX(view.getDots().get(i).getX() +(view.getDots().get(i).getWidth()/2));
+			model.getListDots().get(i).setCenterY(view.getDots().get(i).getY() +(view.getDots().get(i).getHeight()/2) );
 		}
 		
+		
+		//Mouse
 		mouse = new MouseListener() {
 			
 			@Override
@@ -60,38 +49,29 @@ public class Controller{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				
-				for (int i=0; i<model.getListDots().size(); i++)
-				{
-					//se il dot non è stato selezionato, lo attivo e cambio l'icona
+				for (int i=0; i<model.getListDots().size(); i++) {
+				
+					//Active a Dot that is false
 					if(model.getListDots().get(i).contains(e.getX(), e.getY())) {
 						if (!(model.getListDots().get(i).isSelected()))
 						{
-							try { model.getListDots().get(i).setSelected(true);
-							JOptionPane.showConfirmDialog(null, "Click on "+model.getListDots().get(i).getX()+","+model.getListDots().get(i).getY());
-							ImageIcon img1 = new ImageIcon("Image"+File.separator+"selectDot.png");
-							Image scaled1 = img1.getImage();
-							scaled1 = scaled1.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-							view.getDots().get(i).setIcon(new ImageIcon(scaled1));
-							}
-							catch (IOException e1) { e1.printStackTrace(); }
+							System.out.println("SS");
+							model.getListDots().get(i).switchImage();
+							view.getDots().get(i).setIcon(new ImageIcon(model.getListDots().get(i).getImage()));
 						}
-						else //lo disattivo e rimetto l'icona standard
+						//Disable a Dot that is true
+						else 
 						{
-							try { model.getListDots().get(i).setSelected(false);
-							JOptionPane.showConfirmDialog(null, "Click on "+model.getListDots().get(i).getX()+","+model.getListDots().get(i).getY());
-							ImageIcon img1 = new ImageIcon("Image"+File.separator+"dot.png");
-							Image scaled1 = img1.getImage();
-							scaled1 = scaled1.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-							view.getDots().get(i).setIcon(new ImageIcon(scaled1));
-							}
-							catch (IOException e1) { e1.printStackTrace(); }
+							System.out.println("NN");
+							model.getListDots().get(i).switchImage();
+							view.getDots().get(i).setIcon(new ImageIcon(model.getListDots().get(i).getImage()));
 						}
 						
 					}
 				}
 
 				
-				//controllo se ho selezionato 2 dot, in tal caso verifico se la linea è valida e la creo
+				//CHECK OF LINE
 				Dot start = null;
 				Dot end = null;
 				for (Dot d : model.getListDots())
@@ -102,31 +82,27 @@ public class Controller{
 						else if(end == null)
 							end = d;
 					
-					
+					//IF WE HAVE 2 SELECTED DOTS
 					if(start != null && end != null)
 					{
-						
+						//Create a new Line
 						try { 
 						Line a = new Line(start, end);
 						if (a.isValid())
 							view.addLine(a.getImage(),a.getStart().getX(),a.getStart().getY(), a.getEnd().getX(), a.getEnd().getY());
 						} catch (IOException e2) { e2.printStackTrace(); }
 						
+						//Set Dots at false
+						for (int i=0; i<model.getListDots().size(); i++) {
+							if(model.getListDots().get(i).isSelected()) {
+								model.getListDots().get(i).switchImage();
+								view.getDots().get(i).setIcon(new ImageIcon(model.getListDots().get(i).getImage()));
+								view.refreshScreen();}
 						
-						for (Dot d2 : model.getListDots())
-							try {d2.setSelected(false);} catch (IOException e1) { e1.printStackTrace();}
-						
-						for (JLabel l : view.getDots())
-						{
-						ImageIcon img1 = new ImageIcon("Image"+File.separator+"dot.png");
-						Image scaled1 = img1.getImage();
-						scaled1 = scaled1.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-						l.setIcon(new ImageIcon(scaled1));
 						}
-						break;
+						break; // non ho capito quale ciclo ferma ma qualcosa la ferma, me lo devi spiegare
 					}
 				}
-				view.refreshScreen();
 			}
 			
 			@Override
@@ -147,6 +123,11 @@ public class Controller{
 		};
 	
 		view.getGameInterface().addMouseListener(mouse);
+	}
+	
+	
+	public void checkLine() {
+		//VOGLIO METTERE IL CONTROLOO QUI MA DEVO CAPIRE PRIMA COME
 	}
 
 }
