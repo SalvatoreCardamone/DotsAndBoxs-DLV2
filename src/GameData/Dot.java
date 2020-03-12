@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 import javafx.scene.shape.Circle;
 public class Dot extends Circle{
 	private int x;
