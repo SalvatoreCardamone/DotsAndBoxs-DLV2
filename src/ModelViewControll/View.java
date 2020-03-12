@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import GameData.Line;
+
 public class View {
 	private int screenScaleX;
 	private int screenScaleY;
@@ -148,11 +150,17 @@ public class View {
 		}
 		this.gameInterface.add(this.lines.get(this.lines.size()-1));
 		this.refreshScreen();
-		System.out.println("aggiunto");
 		}
 		
 	//Square add Method
 
+	public void addSquare(BufferedImage image, Line A) {
+		this.square.add(new JLabel(new ImageIcon(image)));
+		this.square.get(this.square.size()-1).setBounds(A.getStart().getX()*this.screenScaleX,
+														A.getStart().getY()*this.screenScaleY,
+														this.screenScaleX,
+														this.screenScaleY);	
+	}
 
 	
 	

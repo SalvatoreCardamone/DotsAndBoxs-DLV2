@@ -17,6 +17,7 @@ public class Line {
 		this.end=end;
 		File input=new File("Image"+File.separator+"line.png");
 		this.image= ImageIO.read(input);
+		firstElementSort();
 	}
 	
 	public BufferedImage getImage() {
@@ -46,4 +47,15 @@ public class Line {
 		
 		return false;
 	}
+	private void firstElementSort() {
+		if(this.start.getY()>=this.end.getY()) {
+			if(this.start.getX()>=this.end.getX()) {
+				Dot temp=this.start;
+				this.start=this.end;
+				this.end=temp;
+				
+			}
+		}
+	}
 }
+

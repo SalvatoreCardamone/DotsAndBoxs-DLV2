@@ -15,5 +15,6 @@ public class Main {
 		 System.out.println("PROVA");
 		 int nQuadranti=10;
 		 Controller A = new Controller(new Model(nQuadranti, nQuadranti), new View(nQuadranti, nQuadranti));
+		 A.start(A);
 	    }
 }

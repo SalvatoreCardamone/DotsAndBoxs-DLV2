@@ -63,19 +63,12 @@ public class Model {
 	}
 
 
-	public void setListSquares(ArrayList<Square> listSquares) {
-		this.listSquares = listSquares;
-	}
-
 
 	public ArrayList<Line> getListLines() {
 		return listLines;
 	}
 
 
-	public void setListLines(ArrayList<Line> listLines) {
-		this.listLines = listLines;
-	}
 
 
 	public ArrayList<Dot> getListDots() {
@@ -83,9 +76,12 @@ public class Model {
 	}
 
 
-	public void setListDots(ArrayList<Dot> listDots) {
-		this.listDots = listDots;
+	public void addLine(Line A) {
+		this.listLines.add(A);
 	}
 	
+	public void addSquare(Square A) {
+		this.listSquares.add(A);
+	}
 	
 }
