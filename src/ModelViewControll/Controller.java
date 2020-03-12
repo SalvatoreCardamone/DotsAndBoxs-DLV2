@@ -1,23 +1,11 @@
 package ModelViewControll;
 
-import java.awt.Image;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import GameData.Dot;
 import GameData.Line;
-import GameData.Square;
-import javafx.geometry.Point2D;
-import javafx.scene.shape.Circle;
 
 
 public class Controller{
