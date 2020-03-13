@@ -155,11 +155,15 @@ public class View {
 	//Square add Method
 
 	public void addSquare(BufferedImage image, Line A) {
+		System.out.println(A.getStart().getX() * this.screenScaleX + " " + A.getStart().getY()* this.screenScaleY);
+		System.out.println(image.getPropertyNames());
 		this.square.add(new JLabel(new ImageIcon(image)));
-		this.square.get(this.square.size()-1).setBounds(A.getStart().getX()*this.screenScaleX,
-														A.getStart().getY()*this.screenScaleY,
+		this.square.get(this.square.size()-1).setBounds((screenScaleX/2)+ A.getStart().getX()*this.screenScaleX,
+														(screenScaleY/2)+A.getStart().getY()*this.screenScaleY,
 														this.screenScaleX,
 														this.screenScaleY);	
+		this.gameInterface.add(this.square.get(this.square.size()-1));
+		this.refreshScreen();
 	}
 
 	

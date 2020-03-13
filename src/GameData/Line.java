@@ -57,5 +57,24 @@ public class Line {
 			}
 		}
 	}
+	
+	public boolean equalsStart(Line a) {
+		if(this.start.getX()==a.start.getX() && this.start.getY()==a.start.getY())
+			return true;
+		return false;
+	}
+	
+	
+	public boolean equalsEnd(Line a) {
+		if (this.end.getX()==a.getEnd().getX() && this.end.getY()==a.getEnd().getY())
+			return true;
+		return false;
+	}
+	
+	public boolean equalsStartEnd(Line a) {
+		if (this.start.getX()==a.getEnd().getX() && this.start.getY()==a.getEnd().getY())
+			return true;
+		return false;
+	}
 }
 

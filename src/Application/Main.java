@@ -2,7 +2,6 @@ package Application;
 
 
 import java.io.IOException;
-
 import ModelViewControll.Controller;
 import ModelViewControll.Model;
 import ModelViewControll.View;

@@ -15,8 +15,8 @@ public class Square {
 	public Square(Line A, Line B, Line C, Line D) throws IOException {
 		lines=new ArrayList<Line>();
 		lines.add(A);lines.add(B);lines.add(C);lines.add(D);
-		this.firstElementSort();
-		File input=new File("Image"+File.separator+"line.png");
+		this.sort();
+		File input=new File("Image"+File.separator+"A2.png");
 		this.image= ImageIO.read(input);
 	}
 	
@@ -37,7 +37,8 @@ public class Square {
 	}
 	
 	//Make element on position 0 the Top Left Corner of the square
-	private void firstElementSort() {
+	private void sort() {
+		System.out.println(lines.size());
 		for(int i=0; i<lines.size()-1; i++) {
 			for(int j=i+1; j<this.lines.size(); j++) {
 				if(this.lines.get(i).getStart().getY()>this.lines.get(j).getStart().getY()) {

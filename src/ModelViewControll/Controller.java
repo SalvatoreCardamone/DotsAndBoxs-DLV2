@@ -1,12 +1,13 @@
 package ModelViewControll;
 
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import GameData.Dot;
 import GameData.Line;
-
+import GameData.Square;
 
 public class Controller{
 
@@ -124,27 +125,55 @@ public class Controller{
 	}
 	
 	public void checkLine(Line line) throws IOException {
-	/*	Circle radar = new Circle();
-		radar.setRadius(1.5);
-		radar.setCenterX(line.getStart().getX());
-		radar.setCenterY(line.getStart().getY());
+
+		Line pairStart=null;
+		Line pairEnd=null;
 		
-		ArrayList<Line> temp= new ArrayList<Line>();
-		for(int i=0; i<model.getListLines().size(); i++) {
-			if(radar.contains(new Point2D(model.getListLines().get(i).getStart().getX(), model.getListLines().get(i).getStart().getY()))) {
-				temp.add(model.getListLines().get(i));
-			}
+		/*Angoli 90� formatisi */
+		for(int i=0 ; i<model.getListLines().size()-1; i++) {
+				if(line.equalsStart(model.getListLines().get(i))) {
+					pairStart=model.getListLines().get(i);
+				System.out.println("pairStart");
+				}
+				else if (line.equalsEnd(model.getListLines().get(i))) {
+					pairEnd=model.getListLines().get(i);
+					System.out.println("pairEnd");
+				}
 		}
 		
-		for(int i=0; i<temp.size(); i++) {
-			if(line.getStart().getX()==temp.get(i).getStart().getX() && line.getStart().getY()==temp.get(i).getStart().getY()) {
-				
-				for(int j=0; j<temp.size(); j++) {
-					if()
+		
+		
+		if(pairStart!=null) {
+			for(int i=0; i<model.getListLines().size()-1; i++) {
+				if(model.getListLines().get(i).equalsStartEnd(line)) {
+					for(int j=0; j<model.getListLines().size()-1; j++) {
+						if(model.getListLines().get(j).equalsStartEnd(pairStart)) {
+							if(model.getListLines().get(i).equalsEnd(model.getListLines().get(j))){
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairStart));
+								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
+							}
+						}
+					}
+				}
+			}
+		}
+		else if(pairEnd!=null) {
+			for(int i=0; i<model.getListLines().size()-1; i++) {
+				if(line.equalsStartEnd(model.getListLines().get(i))) {
+					for(int j=0; j<model.getListLines().size()-1; j++) {
+						if(pairEnd.equalsStartEnd(model.getListLines().get(j))) {
+							if(model.getListLines().get(i).equalsStart(model.getListLines().get(j))){
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairEnd));
+								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
+							}
+						}
+					}
 				}
 			}
 		}
 		
-	}*/
+		
+		
+		
 	}
 }
