@@ -1,35 +1,66 @@
 %ENTITA
-linea(PUNTO_A, PUNTO_B, GIOCATORE). %GIOCATORE = umano, oppure cpu.
-punto(A,COORD_X,COORD_Y).
+%linea(START_X,START_Y,END_X,END_Y, GIOCATORE) GIOCATORE = umano, oppure cpu.
+%punto(COORD_X,COORD_Y).
+
+punto(0,0).
+punto(0,1).
+%punto(0,2).
+%punto(0,3).
+%punto(0,4).
+
+%punto(1,0).
+%punto(1,1).
+%punto(1,2).
+%punto(1,3).
+%punto(1,4).
+
+%punto(2,0).
+%punto(2,1).
+%punto(2,2).
+%punto(2,3).
+%punto(2,4).
+
+%punto(3,0).
+%punto(3,1).
+%punto(3,2).
+%punto(3,3).
+%punto(3,4).
+
+%punto(4,0).
+%punto(4,1).
+%punto(4,2).
+%punto(4,3).
+%punto(4,4).
+
 
 %GUESS
 %DATI 2 PUNTI, DECIDO SE INSERIRE OPPURE NO UNA LINEA TRA LORO
-linea(A,B, cpu) | nonlinea(A,B, cpu) :- punto(A,_,_), punto(B,_,_), A != B.
+linea(START_X,START_Y,END_X,END_Y, cpu) | nonlinea(START_X,START_Y,END_X,END_Y, cpu) :- punto(START_X,START_Y), punto(END_X,END_Y).
 
 %SE INSERISCO UNA LINEA, AVRA ENTRAMBE  LE COORDINATE COME PARTENZA E ARRIVO
-linea(B,A,cpu) :- linea(A,B,cpu).
+linea(START_X,START_Y,END_X,END_Y, cpu) :- linea(END_X,END_Y,START_X,START_Y, cpu).
+
+%AD OGNI TURNO DEVO INSERIRE 1 LINEA
+:- #count { X : linea(_,_,_,_,X) } > 2.
+:- #count { X : linea(_,_,_,_,X) } < 1.
 
 
 %CHECK 
-%NON E' POSSIBILE INSERIRE UNA LINEA DOVE IL GIOCATORE HA GIA INSERITO, O COMUNQUE DOVE E' GIA PRESENTE UNA LINEA (TUTTE LE VECCHIE VENGONO DICHIARATE UMANE?)
-:- linea(A,B,cpu), linea(A,B,umano).
+%UNA LINEA NON PUO ESSERE TRA 2 PUNTI UGUALI
+:- linea(START_X,START_Y,END_X,END_Y, cpu), START_X = END_X, START_Y = END_Y.
 
-%AD OGNI TURNO, L'IA DEVE INSERIRE SOLAMENTE 1 LINEA (CONT = 2 DATO CHE AVRO COMUNQUE DUE LINEE, VISTO CHE HANNO ANDATA E RITORNO)
-:- #count { cpu : linea(A,B,cpu) } > 2.
 
-%UNA LINEA DEVE ESSERE TRA 2 PUNTI VICINI
-:- linea(A,B,cpu), punto(A,X1,Y1), punto(B,X2,Y2), X1 - X2 != 1.
-:- linea(A,B,cpu), punto(A,X1,Y1), punto(B,X2,Y2), X1 - X2 != -1.
-:- linea(A,B,cpu), punto(A,X1,Y1), punto(B,X2,Y2), Y1 - Y2 != 1.
-:- linea(A,B,cpu), punto(A,X1,Y1), punto(B,X2,Y2), Y1 - Y2 != -1.
+%UNA LINEA NON PUO ESSERE TRA 2 PUNTI NON VICINI ORIZONTALMENTE/VERTICALMENTE
+:- linea(START_X,START_Y,END_X,END_Y, cpu), START_X > END_X, START_X - END_X > 1.
+:- linea(START_X,START_Y,END_X,END_Y, cpu), START_Y > END_Y, START_Y - END_Y > 1.
+
+:- linea(START_X,START_Y,END_X,END_Y, cpu), START_X < END_X, START_X - END_X < -1.
+:- linea(START_X,START_Y,END_X,END_Y, cpu), START_Y < END_Y, START_Y - END_Y < -1.
 
 
 %WEAK CONSTRAINT
-%E PREFERIBILE CHIUDERE UN QUADRATO CON UNA LINEA, SE POSSIBILE (SE NON LO FACCIO PAGO COSTO MINORE)
-:~ 
+%E PREFERIBILE CHIUDERE UN QUADRATO CON UNA LINEA, SE POSSIBILE 
+%:~ 
 
-%E PREFERIBILE NON CREARE UN QUADRATO CON UN LATO APERTO CON LA PROSSIMA LINEA (COSTO MEDIO)
-:~
-
-%E PREFERIBILE NON CREARE UNA SERIE DI QUADRATI CON LA PROSSIMA LINEA (COSTO ELEVATO..COME MINCHIA SI FA?)
-:~
+%E PREFERIBILE NON CREARE UN QUADRATO CON UN LATO APERTO CON LA PROSSIMA LINEA 
+%:~
