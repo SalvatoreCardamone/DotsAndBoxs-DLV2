@@ -19,8 +19,8 @@ public class Model {
 
 	
 	public Model(int x, int y) throws IOException {
-		this.humanPlayer=new Player();
-		this.aiPlayer= new Player();
+		this.humanPlayer=new Player(true);
+		this.aiPlayer= new Player(false);
 		listSquares=new ArrayList<Square>();
 		listLines= new ArrayList<Line>();
 		listDots=new ArrayList<Dot>();
@@ -82,6 +82,14 @@ public class Model {
 	
 	public void addSquare(Square A) {
 		this.listSquares.add(A);
+	}
+	
+	public boolean alreadyExist(Line A) {
+		for(int i=0; i<this.listLines.size(); i++) {
+			if(this.listLines.get(i).equalsStart(A) && this.listLines.get(i).equalsEnd(A))
+				return true;
+		}
+		return false;
 	}
 	
 }

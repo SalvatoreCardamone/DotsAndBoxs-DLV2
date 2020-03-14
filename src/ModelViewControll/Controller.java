@@ -15,14 +15,11 @@ public class Controller{
 	private Model model;
 	private View view;
 	private MouseListener mouse;
-	private Integer scoreHuman;
-	private Integer scoreAi;
+
 	
 	public Controller(Model model, View view) throws IOException{
 		this.model = model;
 		this.view = view;
-		scoreHuman = 0;
-		scoreAi = 0;
 		
 		//Settings of Dots and their Circle
 		for(int i=0; i<this.model.getListDots().size(); i++) 
@@ -70,8 +67,8 @@ public class Controller{
 						}
 						
 						controller.checkDot();
-						view.getScoreAi().setText(scoreAi.toString());
-						view.getScorePlayer().setText(scoreHuman.toString());
+						view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
+						view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
 					}
 					
 					@Override
@@ -94,6 +91,17 @@ public class Controller{
 				view.getGameInterface().addMouseListener(mouse);
 	}
 	
+	
+	public void playerTurn() {
+		
+	}
+	
+	public void aiTurn() {
+		
+		
+	}
+	
+	
 	public void checkDot() {
 		//CHECK OF LINE
 		Dot start = null;
@@ -112,10 +120,15 @@ public class Controller{
 				//Create a new Line
 				try { 
 				Line a = new Line(start, end);
-				if (a.isValid())
-					view.addLine(a.getImage(),a.getStart().getX(),a.getStart().getY(), a.getEnd().getX(), a.getEnd().getY());
-					model.addLine(new Line(start, end));
-					this.checkLine(model.getListLines().get(model.getListLines().size()-1));
+					if (a.isValid() && !model.alreadyExist(a)) {
+						view.addLine(a.getImage(),a.getStart().getX(),a.getStart().getY(), a.getEnd().getX(), a.getEnd().getY());
+						model.addLine(new Line(start, end));
+						if(model.getHumanPlayer().getItsMyTurn()==true) {
+						this.checkLine(model.getListLines().get(model.getListLines().size()-1),Giocatore.HUMAN);}
+						else if(model.getAiPlayer().getItsMyTurn()==true) {
+						this.checkLine(model.getListLines().get(model.getListLines().size()-1),Giocatore.CPU);
+						}
+					}
 				} catch (IOException e2) { e2.printStackTrace(); }
 				
 				//Set Dots at false
@@ -130,12 +143,13 @@ public class Controller{
 		}
 	}
 	
-	public void checkLine(Line line) throws IOException {
-
+	public void checkLine(Line line, Giocatore player) throws IOException {
+		
+		System.out.println(player);
 		Line pairStart=null;
 		Line pairEnd=null;
 		
-		/*Angoli 90ï¿½ formatisi */
+		/*Angoli 90° formatisi */
 		for(int i=0 ; i<model.getListLines().size()-1; i++) {
 				if(line.equalsStart(model.getListLines().get(i))) {
 					pairStart=model.getListLines().get(i);
@@ -147,7 +161,8 @@ public class Controller{
 				}
 		}
 		
-		
+		boolean point=false;
+		int cont=0;
 		
 		if(pairStart!=null) {
 			for(int i=0; i<model.getListLines().size()-1; i++) {
@@ -155,8 +170,9 @@ public class Controller{
 					for(int j=0; j<model.getListLines().size()-1; j++) {
 						if(model.getListLines().get(j).equalsStartEnd(pairStart)) {
 							if(model.getListLines().get(i).equalsEnd(model.getListLines().get(j))){
-								scoreHuman++;
-								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairStart, Giocatore.HUMAN));
+								cont++;
+								point=true;
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairStart, player));
 								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
 							}
 						}
@@ -170,8 +186,9 @@ public class Controller{
 					for(int j=0; j<model.getListLines().size()-1; j++) {
 						if(pairEnd.equalsStartEnd(model.getListLines().get(j))) {
 							if(model.getListLines().get(i).equalsStart(model.getListLines().get(j))){
-								scoreHuman++;
-								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairEnd, Giocatore.HUMAN));
+								cont++;
+								point=true;
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairEnd, player));
 								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
 							}
 						}
@@ -181,7 +198,18 @@ public class Controller{
 		}
 		
 		
-		
+		if(point) {
+			if(player==Giocatore.HUMAN) {
+				model.getHumanPlayer().setScore(model.getHumanPlayer().getScore()+cont);
+			}
+			else if(player==Giocatore.CPU) {
+				model.getAiPlayer().setScore(model.getAiPlayer().getScore()+cont);
+			}
+		}
+		else if(!point) {
+			model.getAiPlayer().setItsMyTurn(!model.getAiPlayer().getItsMyTurn());
+			model.getHumanPlayer().setItsMyTurn(!model.getHumanPlayer().getItsMyTurn());
+		}
 		
 	}
 }

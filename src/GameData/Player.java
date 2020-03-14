@@ -5,9 +5,9 @@ public class Player {
 	private int score;
 	private boolean itsMyTurn;
 	
-	public Player(){
+	public Player(boolean itsMyTurn){
 		this.score=0;
-		this.itsMyTurn=false;
+		this.itsMyTurn=itsMyTurn;
 	}
 	
 	public int getScore() {
@@ -16,7 +16,7 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public boolean isItsMyTurn() {
+	public boolean getItsMyTurn() {
 		return itsMyTurn;
 	}
 	public void setItsMyTurn(boolean itsMyTurn) {
