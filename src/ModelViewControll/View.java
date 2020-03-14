@@ -45,14 +45,15 @@ public class View {
 			scorePlayer.setFont(new Font("myFont", Font.BOLD, 30));
 			scoreAi.setFont(new Font("myFont", Font.BOLD, 30));
 			/*Picture JLabel Settings*/
-			Image tempPlayerIcon= ImageIO.read(new File("Image"+File.separator+"ai.png"));
-			Image tempAiIcon= ImageIO.read(new File("Image"+File.separator+"human.png"));
+			Image tempPlayerIcon= ImageIO.read(new File("Image"+File.separator+"human.png"));
+			Image tempAiIcon= ImageIO.read(new File("Image"+File.separator+"ai.png"));
 			
 			tempPlayerIcon = tempPlayerIcon.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 			tempAiIcon = tempAiIcon.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
 			picturePlayer=new JLabel(new ImageIcon(tempPlayerIcon));
 			pictureAi= new JLabel(new ImageIcon(tempAiIcon));
+			
 		playerBar.add(scorePlayer); 
 		playerBar.add(picturePlayer);
 		aiBar.add(pictureAi);
@@ -100,6 +101,16 @@ public class View {
 	public JPanel getGameInterface()
 	{
 		return gameInterface;
+	}
+	
+	public JLabel getScorePlayer()
+	{
+		return scorePlayer;
+	}
+	
+	public JLabel getScoreAi()
+	{
+		return scoreAi;
 	}
 	
 	public ArrayList<JLabel> getDots()
@@ -154,10 +165,10 @@ public class View {
 		
 	//Square add Method
 
-	public void addSquare(BufferedImage image, Line A) {
+	public void addSquare(Image image, Line A) {
 		System.out.println(A.getStart().getX() * this.screenScaleX + " " + A.getStart().getY()* this.screenScaleY);
-		System.out.println(image.getPropertyNames());
-		this.square.add(new JLabel(new ImageIcon(image)));
+		JLabel label = new JLabel(new ImageIcon(image));
+		this.square.add(label);
 		this.square.get(this.square.size()-1).setBounds((screenScaleX/2)+ A.getStart().getX()*this.screenScaleX,
 														(screenScaleY/2)+A.getStart().getY()*this.screenScaleY,
 														this.screenScaleX,

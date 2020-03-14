@@ -1,26 +1,36 @@
 package GameData;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
+
+
 
 public class Square {
 
+	
+	public enum Giocatore {HUMAN, CPU};
+	private Giocatore giocatore;
 	private ArrayList<Line> lines;
-	private BufferedImage image;
+	private Image image;
 
-	public Square(Line A, Line B, Line C, Line D) throws IOException {
+	public Square(Line A, Line B, Line C, Line D, Giocatore G) throws IOException {
+		giocatore = G;
 		lines=new ArrayList<Line>();
 		lines.add(A);lines.add(B);lines.add(C);lines.add(D);
 		this.sort();
-		File input=new File("Image"+File.separator+"A2.png");
-		this.image= ImageIO.read(input);
+		
+		if (G == Giocatore.HUMAN)
+			image = ImageIO.read(new File("Image"+File.separator+"human.png"));
+		else
+			image = ImageIO.read(new File("Image"+File.separator+"ai.png"));
+	
+		image = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	}
 	
-	public BufferedImage getImage() {
+	public Image getImage() {
 		return image;
 	}
 
@@ -55,6 +65,10 @@ public class Square {
 				}
 			}
 		}
+	}
+	
+	public Giocatore getGiocatore() {
+		return giocatore;
 	}
 	
 	public Line getStartLine() {

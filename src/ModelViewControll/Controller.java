@@ -8,16 +8,21 @@ import javax.swing.ImageIcon;
 import GameData.Dot;
 import GameData.Line;
 import GameData.Square;
+import GameData.Square.Giocatore;
 
 public class Controller{
 
 	private Model model;
 	private View view;
 	private MouseListener mouse;
+	private Integer scoreHuman;
+	private Integer scoreAi;
 	
 	public Controller(Model model, View view) throws IOException{
 		this.model = model;
 		this.view = view;
+		scoreHuman = 0;
+		scoreAi = 0;
 		
 		//Settings of Dots and their Circle
 		for(int i=0; i<this.model.getListDots().size(); i++) 
@@ -63,9 +68,10 @@ public class Controller{
 								
 							}
 						}
-
 						
 						controller.checkDot();
+						view.getScoreAi().setText(scoreAi.toString());
+						view.getScorePlayer().setText(scoreHuman.toString());
 					}
 					
 					@Override
@@ -149,7 +155,8 @@ public class Controller{
 					for(int j=0; j<model.getListLines().size()-1; j++) {
 						if(model.getListLines().get(j).equalsStartEnd(pairStart)) {
 							if(model.getListLines().get(i).equalsEnd(model.getListLines().get(j))){
-								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairStart));
+								scoreHuman++;
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairStart, Giocatore.HUMAN));
 								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
 							}
 						}
@@ -157,13 +164,14 @@ public class Controller{
 				}
 			}
 		}
-		else if(pairEnd!=null) {
+		if(pairEnd!=null) {
 			for(int i=0; i<model.getListLines().size()-1; i++) {
 				if(line.equalsStartEnd(model.getListLines().get(i))) {
 					for(int j=0; j<model.getListLines().size()-1; j++) {
 						if(pairEnd.equalsStartEnd(model.getListLines().get(j))) {
 							if(model.getListLines().get(i).equalsStart(model.getListLines().get(j))){
-								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairEnd));
+								scoreHuman++;
+								model.addSquare(new Square(line,model.getListLines().get(i), model.getListLines().get(j), pairEnd, Giocatore.HUMAN));
 								view.addSquare(model.getListSquares().get(model.getListSquares().size()-1).getImage(),model.getListSquares().get(model.getListSquares().size()-1).getStartLine());
 							}
 						}
