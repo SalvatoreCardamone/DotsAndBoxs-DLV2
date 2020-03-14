@@ -2,6 +2,9 @@
 %linea(START_X,START_Y,END_X,END_Y, TIME) TIME = old, oppure new. Legge da input le vecchie linee, ed inserisce una nuova
 %punto(COORD_X,COORD_Y).
 
+%MODELLO DATI INPUT
+%SERIE DI PUNTI, SERIE DI LINEE
+
 punto(0,0).
 punto(0,1).
 punto(0,2).
