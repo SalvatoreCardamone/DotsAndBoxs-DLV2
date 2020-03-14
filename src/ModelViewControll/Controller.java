@@ -40,7 +40,6 @@ public class Controller{
 					
 					@Override
 					public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
 						
 					}
 					
@@ -77,13 +76,11 @@ public class Controller{
 					
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						// TODO Auto-generated method stub
 						
 					}
 					
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
 						
 					}
 				};
@@ -210,6 +207,5 @@ public class Controller{
 			model.getAiPlayer().setItsMyTurn(!model.getAiPlayer().getItsMyTurn());
 			model.getHumanPlayer().setItsMyTurn(!model.getHumanPlayer().getItsMyTurn());
 		}
-		
-	}
+	}		
 }
