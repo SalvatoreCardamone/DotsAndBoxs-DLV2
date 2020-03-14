@@ -1,10 +1,10 @@
 %ENTITA
-%linea(START_X,START_Y,END_X,END_Y, TIME) TIME = old, oppure new.
+%linea(START_X,START_Y,END_X,END_Y, TIME) TIME = old, oppure new. Legge da input le vecchie linee, ed inserisce una nuova
 %punto(COORD_X,COORD_Y).
 
 punto(0,0).
 punto(0,1).
-%punto(0,2).
+punto(0,2).
 %punto(0,3).
 %punto(0,4).
 
@@ -32,17 +32,20 @@ punto(0,1).
 %punto(4,3).
 %punto(4,4).
 
+linea(0,0,0,1,old).
 
 %GUESS
 %DATI 2 PUNTI, DECIDO SE INSERIRE OPPURE NO UNA LINEA TRA LORO
 linea(START_X,START_Y,END_X,END_Y, new) | nonlinea(START_X,START_Y,END_X,END_Y, new) :- punto(START_X,START_Y), punto(END_X,END_Y).
 
 %SE INSERISCO UNA LINEA, AVRA ENTRAMBE  LE COORDINATE COME PARTENZA E ARRIVO
-linea(START_X,START_Y,END_X,END_Y, new) :- linea(END_X,END_Y,START_X,START_Y, new).
+linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, TIME).
 
 %AD OGNI TURNO DEVO INSERIRE 1 LINEA
-:- #count { X : linea(_,_,_,_,X) } < 1.
+:- #count { new : linea(_,_,_,_,new) } < 1.
 
+%NON POSSO INSERIRE UNA LINEA DOVE CE N'ERA UNA VECCHIA
+:- linea(START_X,START_Y,END_X,END_Y, new), linea(END_X,END_Y,START_X,START_Y, old).
 
 %CHECK 
 %UNA LINEA NON PUO ESSERE TRA 2 PUNTI UGUALI
