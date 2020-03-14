@@ -25,6 +25,7 @@ public class Model {
 		listLines= new ArrayList<Line>();
 		listDots=new ArrayList<Dot>();
 		loadDots(x,y);
+		
 	}
 	
 	
