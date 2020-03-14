@@ -16,7 +16,7 @@ public class Model {
 	private ArrayList<Line> listLines;
 	//list of all dots
 	private ArrayList<Dot> listDots;
-
+	private int quadranti;
 	
 	public Model(int x, int y) throws IOException {
 		this.humanPlayer=new Player(true);
@@ -25,10 +25,12 @@ public class Model {
 		listLines= new ArrayList<Line>();
 		listDots=new ArrayList<Dot>();
 		loadDots(x,y);
-		
+		quadranti = (x-1) * (y-1);
 	}
 	
-	
+	public int getQuadranti() {
+		return quadranti;
+	}
 	//ListDots Loading scheme
 	public void loadDots(int x, int y) throws IOException {
 		for(int i=0; i<x; i++) {

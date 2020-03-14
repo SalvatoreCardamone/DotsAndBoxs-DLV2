@@ -1,10 +1,13 @@
 package ModelViewControll;
 
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import GameData.Dot;
 import GameData.Line;
 import GameData.Square;
@@ -15,7 +18,6 @@ public class Controller{
 	private Model model;
 	private View view;
 	private MouseListener mouse;
-
 	
 	public Controller(Model model, View view) throws IOException{
 		this.model = model;
@@ -68,6 +70,28 @@ public class Controller{
 						controller.checkDot();
 						view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
 						view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
+						
+
+						if (model.getHumanPlayer().getItsMyTurn())
+						{
+							view.getPlayerBar().setBackground(Color.YELLOW);
+							view.getAiBar().setBackground(Color.WHITE);
+						}
+						else if(model.getAiPlayer().getItsMyTurn())
+						{
+							view.getPlayerBar().setBackground(Color.WHITE);
+							view.getAiBar().setBackground(Color.YELLOW);
+						}
+						
+						if(model.getQuadranti()==model.getListSquares().size())
+						{
+							if(model.getHumanPlayer().getScore() > model.getAiPlayer().getScore())
+								JOptionPane.showConfirmDialog(null, "YOU WIN!", "Congratulations!", JOptionPane.DEFAULT_OPTION);
+							else if (model.getHumanPlayer().getScore() < model.getAiPlayer().getScore())
+								JOptionPane.showConfirmDialog(null, "YOU LOSE!", "Oh no!", JOptionPane.DEFAULT_OPTION);
+							else
+								JOptionPane.showConfirmDialog(null, "DRAW!", "Try again!", JOptionPane.DEFAULT_OPTION);
+						}
 					}
 					
 					@Override
@@ -146,7 +170,7 @@ public class Controller{
 		Line pairStart=null;
 		Line pairEnd=null;
 		
-		/*Angoli 90° formatisi */
+		/*Angoli 90ï¿½ formatisi */
 		for(int i=0 ; i<model.getListLines().size()-1; i++) {
 				if(line.equalsStart(model.getListLines().get(i))) {
 					pairStart=model.getListLines().get(i);

@@ -100,6 +100,7 @@ public class View {
 		//Screen Settings
 		screen.getContentPane().setLayout(new BorderLayout());
 		screen.setSize(new Dimension(600,800));
+		screen.setResizable(false);
 		//screen.setUndecorated(true);
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setAlwaysOnTop(true);
@@ -122,6 +123,16 @@ public class View {
 	public JPanel getGameInterface()
 	{
 		return gameInterface;
+	}
+	
+	public JPanel getPlayerBar()
+	{
+		return playerBar;
+	}
+	
+	public JPanel getAiBar()
+	{
+		return aiBar;
 	}
 	
 	public JLabel getScorePlayer()
