@@ -41,7 +41,6 @@ linea(START_X,START_Y,END_X,END_Y, cpu) | nonlinea(START_X,START_Y,END_X,END_Y, 
 linea(START_X,START_Y,END_X,END_Y, cpu) :- linea(END_X,END_Y,START_X,START_Y, cpu).
 
 %AD OGNI TURNO DEVO INSERIRE 1 LINEA
-:- #count { X : linea(_,_,_,_,X) } > 2.
 :- #count { X : linea(_,_,_,_,X) } < 1.
 
 
