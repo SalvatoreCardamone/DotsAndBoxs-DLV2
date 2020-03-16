@@ -5,38 +5,6 @@
 %MODELLO DATI INPUT
 %SERIE DI PUNTI, SERIE DI LINEE
 
-punto(0,0).
-punto(0,1).
-punto(0,2).
-%punto(0,3).
-%punto(0,4).
-
-%punto(1,0).
-%punto(1,1).
-%punto(1,2).
-%punto(1,3).
-%punto(1,4).
-
-%punto(2,0).
-%punto(2,1).
-%punto(2,2).
-%punto(2,3).
-%punto(2,4).
-
-%punto(3,0).
-%punto(3,1).
-%punto(3,2).
-%punto(3,3).
-%punto(3,4).
-
-%punto(4,0).
-%punto(4,1).
-%punto(4,2).
-%punto(4,3).
-%punto(4,4).
-
-linea(0,0,0,1,old).
-
 %GUESS
 %DATI 2 PUNTI, DECIDO SE INSERIRE OPPURE NO UNA LINEA TRA LORO
 linea(START_X,START_Y,END_X,END_Y, new) | nonlinea(START_X,START_Y,END_X,END_Y, new) :- punto(START_X,START_Y), punto(END_X,END_Y).
@@ -46,6 +14,7 @@ linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, T
 
 %AD OGNI TURNO DEVO INSERIRE 1 LINEA
 :- #count { new : linea(_,_,_,_,new) } < 1.
+:- #count { new : linea(_,_,_,_,new) } > 2.
 
 %NON POSSO INSERIRE UNA LINEA DOVE CE N'ERA UNA VECCHIA
 :- linea(START_X,START_Y,END_X,END_Y, new), linea(END_X,END_Y,START_X,START_Y, old).

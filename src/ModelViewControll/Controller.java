@@ -12,14 +12,26 @@ import GameData.Dot;
 import GameData.Line;
 import GameData.Square;
 import GameData.Square.Giocatore;
+import it.unical.mat.embasp.base.Handler;
+import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.Output;
+import it.unical.mat.embasp.languages.asp.ASPInputProgram;
+import it.unical.mat.embasp.languages.asp.ASPMapper;
+import it.unical.mat.embasp.languages.asp.AnswerSet;
+import it.unical.mat.embasp.languages.asp.AnswerSets;
+import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
+import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
 public class Controller{
 
 	private Model model;
 	private View view;
 	private MouseListener mouse;
+	private static Handler handler;
 	
 	public Controller(Model model, View view) throws IOException{
+		handler = new DesktopHandler(new DLV2DesktopService("/home/marco/git/DotsAndBoxs-DLV2/dlv2"));
+		
 		this.model = model;
 		this.view = view;
 		
@@ -71,7 +83,7 @@ public class Controller{
 						view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
 						view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
 						
-
+						//HIGHLIGHT TURN
 						if (model.getHumanPlayer().getItsMyTurn())
 						{
 							view.getPlayerBar().setBackground(Color.YELLOW);
@@ -81,8 +93,41 @@ public class Controller{
 						{
 							view.getPlayerBar().setBackground(Color.WHITE);
 							view.getAiBar().setBackground(Color.YELLOW);
+							
+							//START AI
+							InputProgram facts= new ASPInputProgram();
+					
+							try {
+								
+							
+							for(Dot d : model.getListDots())
+								facts.addObjectInput(new Dot(d.getX(),d.getY()));
+							
+							for(Line l : model.getListLines())
+								facts.addObjectInput(new Line(l.getStart(),l.getEnd()));
+							
+								
+							
+							
+							} catch (Exception e1) { e1.printStackTrace(); } 
+							
+							handler.addProgram(facts);
+							InputProgram encoding= new ASPInputProgram();
+							encoding.addFilesPath("DotsBoxsIA.txt");
+							handler.addProgram(encoding);
+							
+							Output o =  handler.startSync();
+							AnswerSets answers = (AnswerSets) o;
+							
+							for(AnswerSet a:answers.getAnswersets()) {
+									System.out.println(a);
+									
+							}
+							
 						}
 						
+						
+						//END OF GAME
 						if(model.getQuadranti()==model.getListSquares().size())
 						{
 							if(model.getHumanPlayer().getScore() > model.getAiPlayer().getScore())

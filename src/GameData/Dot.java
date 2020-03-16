@@ -6,12 +6,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javafx.scene.shape.Circle;
+
+import it.unical.mat.embasp.languages.Id;
+import it.unical.mat.embasp.languages.Param;
+
+@Id("punto")
 public class Dot extends Circle{
+	@Param(0)
 	private int x;
+	@Param(1)
 	private int y;
+	
 	private Image image;
 	private Image notImage;
 	private boolean selected;
+	
+	public Dot() {}
 	
 	public Dot(int x, int y) throws IOException{
 		this.x=x; this.y=y;
