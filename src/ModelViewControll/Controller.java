@@ -34,7 +34,7 @@ public class Controller{
 		
 		this.model = model;
 		this.view = view;
-		
+		 
 		//Settings of Dots and their Circle
 		for(int i=0; i<this.model.getListDots().size(); i++) 
 			this.view.addDot(this.model.getListDots().get(i).getImage(), this.model.getListDots().get(i).getX(), this.model.getListDots().get(i).getY());
@@ -120,6 +120,7 @@ public class Controller{
 							AnswerSets answers = (AnswerSets) o;
 							
 							for(AnswerSet a:answers.getAnswersets()) {
+								
 									System.out.println(a);
 									
 							}
