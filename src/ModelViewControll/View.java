@@ -198,7 +198,6 @@ public class View {
 	//Square add Method
 
 	public void addSquare(Image image, Line A) {
-		System.out.println(A.getStart().getX() * this.screenScaleX + " " + A.getStart().getY()* this.screenScaleY);
 		JLabel label = new JLabel(new ImageIcon(image));
 		this.square.add(label);
 		this.square.get(this.square.size()-1).setBounds((screenScaleX/2)+ A.getStart().getX()*this.screenScaleX,

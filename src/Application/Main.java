@@ -14,7 +14,6 @@ public class Main {
 	public static Controller A;
 	public static int nQuadranti;
 	 public static void main(String[] args) throws IOException {       
-		 System.out.println("PROVA");
 		 
 		 startGame();
 		 
