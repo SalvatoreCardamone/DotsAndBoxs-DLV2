@@ -4,10 +4,6 @@
 %punto(COORD_X,COORD_Y).
 %%%punteggio(SCORE).
 
-
-punto(0..2,0..2).
-
-%GUESS
 %DATI 2 PUNTI, DECIDO SE INSERIRE OPPURE NO UNA LINEA
 linea(START_X,START_Y,END_X,END_Y, new) | nonlinea(START_X,START_Y,END_X,END_Y, new) :- punto(START_X,START_Y), punto(END_X,END_Y).
 
@@ -19,9 +15,10 @@ linea(START_X,START_Y,END_X,END_Y, new) | nonlinea(START_X,START_Y,END_X,END_Y, 
 %SE INSERISCO UNA LINEA, AVRA ENTRAMBE  LE COORDINATE COME PARTENZA E ARRIVO
 linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, TIME).
 
-%AD OGNI TURNO DEVO INSERIRE 1 LINEA
-:- #count { new : linea(_,_,_,_,new) } < 1.
-:- #count { new : linea(_,_,_,_,new) } > 2.
+%AD OGNI TURNO DEVO INSERIRE 1 LINEA 
+%%SEI UN FROCIO DI MERDA, LECCATORE DI ZUCCHINE, SUCCHIATORE DI BANANE, SFILETTATORE DI PESCI, SPREMATORE DI NOCI DI COCCO, PAOLO BROSIO
+:- #count { X,Y,Z,T : linea(X,Y,Z,T,new) } < 2.
+:- #count { X,Y,Z,T : linea(X,Y,Z,T,new) } > 3.
 
 %NON POSSO INSERIRE UNA LINEA SOPRA UNA GIA ESISTENTE
 :- linea(START_X,START_Y,END_X,END_Y, new), linea(END_X,END_Y,START_X,START_Y, "old").
@@ -35,9 +32,11 @@ linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, T
 
 %WEAK CONSTRAINT
 %E PREFERIBILE CHIUDERE UN QUADRATO CON UNA LINEA, SE POSSIBILE 
-:~ linea(A1,A2,A3,A4,"old"), linea(A1,A2,B3,B4,"old"), linea(A3,A4,C3,C4,"old"), not linea(B3,B4,C3,C4,new), C3-B3 <= 1, C4-B4 <=1. [1@1]
+%QUADRATI APERTI
+:~ linea(A1,A2,A3,A2,"old"), linea(A1,A2,A1,B4,"old"), linea(A3,A2,A3,B4,"old"), not linea(A1,B4,A3,B4,"old"), not linea(A1,B4,A3,B4,new). [1@1,A1,A3,B4]
+:~ linea(A1,A2,A1,A4,"old"), linea(A1,A2,B3,A2,"old"), linea(A1,A4,B3,A4,"old"), not linea(B3,A2,B3,A4,"old"), not linea(B3,A2,B3,A4,new). [1@1,A2,B3,A4]
+
 
 %E PREFERIBILE NON CREARE UN QUADRATO CON UN LATO APERTO CON LA PROSSIMA LINEA 
 
 %ESISTE UN PUNTO IN COMUNE
-
