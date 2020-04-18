@@ -147,7 +147,7 @@ public class Controller{
 		
 		} catch (Exception e1) { e1.printStackTrace(); } 
 		
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.win.x64_5"));
+		handler = new DesktopHandler(new DLV2DesktopService("/home/marco/git/DotsAndBoxs-DLV2/dlv2"));
 		handler.addProgram(facts);
 		InputProgram encoding= new ASPInputProgram();
 		encoding.addFilesPath("DotsBoxsIA.txt");

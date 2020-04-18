@@ -35,12 +35,9 @@ linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, T
 
 %WEAK CONSTRAINT
 %E PREFERIBILE CHIUDERE UN QUADRATO CON UNA LINEA, SE POSSIBILE 
-OldSquareOpen(A1,A2,A3,A4,B3,B4,C3,C4,old):-linea(A1,A2,A3,A4,"old"), linea(A1,A2,B3,B4,"old"), linea(A3,A4,C3,C4,"old"), not linea(B3,B4,C3,C4,"old"), C3-B3 <= 1, C4-B4 <=1.
-:~N=#count{A1,A2,A3,A4,B3,B4,C3,C4,old: OldSquareOpen(A1,A2,A3,A4,B3,B4,C3,C4,old)}.[N@1]
-
+:~ linea(A1,A2,A3,A4,"old"), linea(A1,A2,B3,B4,"old"), linea(A3,A4,C3,C4,"old"), not linea(B3,B4,C3,C4,new), C3-B3 <= 1, C4-B4 <=1. [1@1]
 
 %E PREFERIBILE NON CREARE UN QUADRATO CON UN LATO APERTO CON LA PROSSIMA LINEA 
-%:~
 
 %ESISTE UN PUNTO IN COMUNE
 
