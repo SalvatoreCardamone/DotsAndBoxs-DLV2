@@ -22,6 +22,7 @@ public class AnswerSetManager {
 	
 	public Dot[] giveMeAnswer() throws IOException {
 		String el1= answer.getAnswerSetsString();
+		System.out.println(el1);
 		String[]el2 = el1.split("\\.");
 		ArrayList<String> el3= new ArrayList<String>();
 			for(int i=0; i<el2.length; i++) {
@@ -30,6 +31,7 @@ public class AnswerSetManager {
 				}
 			}
 		Random rand=new Random();
+		System.out.println(el3.size());
 		int n=rand.nextInt(el3.size());
 		Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(el3.get(n));

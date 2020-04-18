@@ -1,13 +1,22 @@
 package GameData;
 
-public class Player {
+import it.unical.mat.embasp.languages.Id;
+import it.unical.mat.embasp.languages.Param;
 
+@Id("punteggio")
+public class Player {
+	@Param(0)
 	private int score;
 	private boolean itsMyTurn;
 	
 	public Player(boolean itsMyTurn){
 		this.score=0;
 		this.itsMyTurn=itsMyTurn;
+	}
+	
+	public Player(int score){
+		this.score=score;
+		this.itsMyTurn=false;
 	}
 	
 	public int getScore() {

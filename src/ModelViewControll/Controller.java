@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import GameData.Dot;
 import GameData.Line;
+import GameData.Player;
 import GameData.Square;
 import GameData.Square.Giocatore;
 import Tool.AnswerSetManager;
@@ -30,7 +31,6 @@ public class Controller{
 	private static Handler handler;
 	
 	public Controller(Model model, View view) throws IOException{
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.win.x64_5"));
 		
 		this.model = model;
 		this.view = view;
@@ -80,18 +80,16 @@ public class Controller{
 								}
 							}
 							controller.checkDot();
-							view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
-							view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
 							endGame();
 						}
 						while(model.getAiPlayer().getItsMyTurn()) {
+							view.getPlayerBar().setBackground(Color.WHITE);
+							view.getAiBar().setBackground(Color.YELLOW);
 							aiStart(controller);
 							endGame();
-							view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
-							view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
-							view.getPlayerBar().setBackground(Color.YELLOW);
-							view.getAiBar().setBackground(Color.WHITE);
 						}
+						view.getPlayerBar().setBackground(Color.YELLOW);
+						view.getAiBar().setBackground(Color.WHITE);
 					}
 					
 					@Override
@@ -131,9 +129,6 @@ public class Controller{
 	
 	public void aiStart(Controller controller) {
 		
-		view.getPlayerBar().setBackground(Color.WHITE);
-		view.getAiBar().setBackground(Color.YELLOW);
-		
 		//START AI
 		InputProgram facts= new ASPInputProgram();
 
@@ -146,11 +141,13 @@ public class Controller{
 		for(Line l : model.getListLines())
 			facts.addObjectInput(new Line(l.getStart(),l.getEnd()));
 		
-			
+		facts.addObjectInput(new Player(model.getAiPlayer().getScore()));
+		
 		
 		
 		} catch (Exception e1) { e1.printStackTrace(); } 
 		
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.win.x64_5"));
 		handler.addProgram(facts);
 		InputProgram encoding= new ASPInputProgram();
 		encoding.addFilesPath("DotsBoxsIA.txt");
@@ -274,9 +271,12 @@ public class Controller{
 		if(point) {
 			if(player==Giocatore.HUMAN) {
 				model.getHumanPlayer().setScore(model.getHumanPlayer().getScore()+cont);
+				view.getScorePlayer().setText(Integer.toString(model.getHumanPlayer().getScore()));
+
 			}
 			else if(player==Giocatore.CPU) {
 				model.getAiPlayer().setScore(model.getAiPlayer().getScore()+cont);
+				view.getScoreAi().setText(Integer.toString(model.getAiPlayer().getScore()));
 			}
 		}
 		else if(!point) {
