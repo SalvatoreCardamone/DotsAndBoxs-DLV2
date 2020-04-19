@@ -81,15 +81,24 @@ public class Controller{
 							}
 							controller.checkDot();
 							endGame();
+							
 						}
-						while(model.getAiPlayer().getItsMyTurn()) {
+						if (model.getHumanPlayer().getItsMyTurn())
+						{
+						view.getPlayerBar().setBackground(Color.YELLOW);
+						view.getAiBar().setBackground(Color.WHITE);
+						}
+						else if (model.getAiPlayer().getItsMyTurn())
+						{
 							view.getPlayerBar().setBackground(Color.WHITE);
 							view.getAiBar().setBackground(Color.YELLOW);
+						}
+						while(model.getAiPlayer().getItsMyTurn()) {
+
 							aiStart(controller);
 							endGame();
 						}
-						view.getPlayerBar().setBackground(Color.YELLOW);
-						view.getAiBar().setBackground(Color.WHITE);
+						
 					}
 					
 					@Override
@@ -109,18 +118,29 @@ public class Controller{
 			
 				view.getGameInterface().addMouseListener(mouse);
 	}
-	
+
 	public void endGame() {
 		//END OF GAME
 		if(model.getQuadranti()==model.getListSquares().size())
 		{
 			if(model.getHumanPlayer().getScore() > model.getAiPlayer().getScore())
+			{
+				view.getPlayerBar().setBackground(Color.GREEN);
+				view.getAiBar().setBackground(Color.RED);
 				JOptionPane.showConfirmDialog(null, "YOU WIN!", "Congratulations!", JOptionPane.DEFAULT_OPTION);
+			}	
 			else if (model.getHumanPlayer().getScore() < model.getAiPlayer().getScore())
+			{
+				view.getPlayerBar().setBackground(Color.RED);
+				view.getAiBar().setBackground(Color.GREEN);
 				JOptionPane.showConfirmDialog(null, "YOU LOSE!", "Oh no!", JOptionPane.DEFAULT_OPTION);
+			}
 			else
+			{
+				view.getPlayerBar().setBackground(Color.ORANGE);
+				view.getAiBar().setBackground(Color.ORANGE);
 				JOptionPane.showConfirmDialog(null, "DRAW!", "Try again!", JOptionPane.DEFAULT_OPTION);
-			
+			}
 			model.getHumanPlayer().setItsMyTurn(false);
 			model.getAiPlayer().setItsMyTurn(false);
 		}
@@ -167,6 +187,7 @@ public class Controller{
 					}
 				}
 			}
+		
 		
 	}
 	

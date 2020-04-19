@@ -31,7 +31,6 @@ public class AnswerSetManager {
 				}
 			}
 		Random rand=new Random();
-		System.out.println(el3.size());
 		int n=rand.nextInt(el3.size());
 		Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(el3.get(n));
