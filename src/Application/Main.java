@@ -24,7 +24,7 @@ public class Main {
 		 nQuadranti = 0;
 		 while (nQuadranti <= 2 || nQuadranti >= 11)
 		 {
-		 String s = JOptionPane.showInputDialog("Inserire numero quadranti (Minimo 3, max 10):");
+		 String s = JOptionPane.showInputDialog("Inserire dimensione quadranti (Minimo 3, max 10):");
 		 if (s == null)
 			 System.exit(0);
 			 

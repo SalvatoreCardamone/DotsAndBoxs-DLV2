@@ -1,16 +1,18 @@
 %ENTITA INPUT
 %linea(START_X,START_Y,END_X,END_Y, TIME). 
-% -Time risulta old su linee gia esistenti, new su possibili nuove linee
+%Una linea ha come parametri le 2 coordinate del punto di partenza, e le 2 coordinate del punto di arrivo.
+%Time risulta old su linee gia esistenti, new su possibili nuove linee.
+
 %punto(COORD_X,COORD_Y).
-%%%punteggio(SCORE).
+%Un punto ha come parametri le sue coordinate x e y.
 
 %DATI 2 PUNTI, DECIDO SE INSERIRE OPPURE NO UNA LINEA
 linea(START_X,START_Y,END_X,END_Y, new) | nonlinea(START_X,START_Y,END_X,END_Y, new) :- punto(START_X,START_Y), punto(END_X,END_Y).
 
+
 %CHECK 
 %UNA LINEA NON PUO ESSERE FORMATA DALLO STESSO PUNTO
 :-linea(START_X,START_Y,END_X,END_Y, new), START_X = END_X, START_Y = END_Y.
-
 
 %SE INSERISCO UNA LINEA, AVRA ENTRAMBE  LE COORDINATE COME PARTENZA E ARRIVO
 linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, TIME).
@@ -29,14 +31,14 @@ linea(START_X,START_Y,END_X,END_Y, TIME) :- linea(END_X,END_Y,START_X,START_Y, T
 :- linea(START_X,START_Y,END_X,END_Y, TIME), START_X = END_X, START_Y - END_Y != 1, START_Y- END_Y!=-1.
 :- linea(START_X,START_Y,END_X,END_Y, TIME), START_Y = END_Y, START_X - END_X != 1, START_X - END_X!=-1.
 
+
 %WEAK CONSTRAINT
 %E PREFERIBILE CHIUDERE UN QUADRATO CON UNA LINEA, SE POSSIBILE 
 %QUADRATI APERTI
-:~ linea(A1,A2,A3,A2,"old"), linea(A1,A2,A1,B4,"old"), linea(A3,A2,A3,B4,"old"), not linea(A1,B4,A3,B4,"old"), not linea(A1,B4,A3,B4,new). [1@1,A1,A3,B4]
-:~ linea(A1,A2,A1,A4,"old"), linea(A1,A2,B3,A2,"old"), linea(A1,A4,B3,A4,"old"), not linea(B3,A2,B3,A4,"old"), not linea(B3,A2,B3,A4,new). [1@1,A2,B3,A4]
+:~ linea(A1,A2,A3,A2,"old"), linea(A1,A2,A1,B4,"old"), linea(A3,A2,A3,B4,"old"), not linea(A1,B4,A3,B4,"old"), not linea(A1,B4,A3,B4,new). [1@2,A1,A3,B4]
+:~ linea(A1,A2,A1,A4,"old"), linea(A1,A2,B3,A2,"old"), linea(A1,A4,B3,A4,"old"), not linea(B3,A2,B3,A4,"old"), not linea(B3,A2,B3,A4,new). [1@2,A2,B3,A4]
 
 
 %E PREFERIBILE NON CREARE UN QUADRATO CON UN LATO APERTO CON LA PROSSIMA LINEA 
-
-
-%ESISTE UN PUNTO IN COMUNE
+:~ linea(A1,A2,A3,A2,_), linea(A1,A2,A1,B4,_), linea(A3,A2,A3,B4,_), not linea(A1,B4,A3,B4,"old"), not linea(A1,B4,A3,B4,new). [1@1,A1,A3,B4]
+:~ linea(A1,A2,A1,A4,_), linea(A1,A2,B3,A2,_), linea(A1,A4,B3,A4,_), not linea(B3,A2,B3,A4,"old"), not linea(B3,A2,B3,A4,new). [1@1,A2,B3,A4]

@@ -167,7 +167,7 @@ public class Controller{
 		
 		} catch (Exception e1) { e1.printStackTrace(); } 
 		
-		handler = new DesktopHandler(new DLV2DesktopService("/home/marco/git/DotsAndBoxs-DLV2/dlv2"));
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 		handler.addProgram(facts);
 		InputProgram encoding= new ASPInputProgram();
 		encoding.addFilesPath("DotsBoxsIA.txt");
@@ -230,7 +230,7 @@ public class Controller{
 						view.getDots().get(i).setIcon(new ImageIcon(model.getListDots().get(i).getImage()));
 						view.refreshScreen();}
 				}
-				break; // non ho capito quale ciclo ferma ma qualcosa la ferma, me lo devi spiegare
+				break;
 			}
 		}
 	}

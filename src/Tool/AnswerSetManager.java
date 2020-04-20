@@ -22,12 +22,15 @@ public class AnswerSetManager {
 	
 	public Dot[] giveMeAnswer() throws IOException {
 		String el1= answer.getAnswerSetsString();
-		System.out.println(el1);
+		// System.out.println(el1);
+		// print full answer set
 		String[]el2 = el1.split("\\.");
 		ArrayList<String> el3= new ArrayList<String>();
 			for(int i=0; i<el2.length; i++) {
 				if(el2[i].contains("new") && !el2[i].contains("nonlinea")) {
 					el3.add(el2[i]);
+					//System.out.println(el2[i]+" ");
+					// print where the AI wants to insert a line
 				}
 			}
 		Random rand=new Random();
